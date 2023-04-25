@@ -28,3 +28,36 @@ jobs:
           release_name: pre-release
           prerelease: true
           draft: false
+          
+      - name: Upload pre-release asset1
+        id: upload-pre_release-asset1
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_pre-release.outputs.upload_url }}
+          asset_path: ./scripts/hashcalculator_csv.py
+          asset_name: hashcalculator_csv.py
+          asset_content_type: text/x-python-script
+          
+      - name: Upload pre-release asset2
+        id: upload-pre_release-asset2
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_pre-release.outputs.upload_url }}
+          asset_path: ./scripts/hashcalculator_sql.py
+          asset_name: hashcalculator_sql.py
+          asset_content_type: text/x-python-script
+          
+      - name: Upload pre-release asset3
+        id: upload-pre_release-asset3
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_pre-release.outputs.upload_url }}
+          asset_path: ./scripts/hashcalculator_txt.py
+          asset_name: hashcalculator_txt.py
+          asset_content_type: text/x-python-script
