@@ -2,7 +2,7 @@ name: Create pre-release
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *' # run every 6 hours
+    - cron: '0 */1 * * *' # run every 6 hours
   push:
     branches:
       - dev
@@ -10,7 +10,7 @@ on:
       - 'scripts/**'
 
 jobs:
-  create-release:
+  create_pre-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,11 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
-          tag_name: pre-release-${{ github.sha }}
-          release_name: Pre-release
+          tag_name: pre-release
+          release_name: pre-release
           prerelease: true
           draft: false
-          files: |
-            /scripts/hashcalculator_csv.py
-            /scripts/hashcalculator_sql.py
-            /scripts/hashcalculator_txt.py
