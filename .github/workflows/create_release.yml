@@ -18,8 +18,7 @@ jobs:
       - name: Read release notes
         id: release_notes
         run: |
-          printf -v formatted_notes "```\n%s\n```" "$(cat release-notes.md)"
-          echo "::set-output name=notes::$formatted_notes"
+          echo "::set-output name=notes::$(cat release-notes.md)"
 
       - name: Get version number
         id: version
