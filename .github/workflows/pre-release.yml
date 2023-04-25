@@ -1,33 +1,31 @@
-name: Publish changed files to pre-release
+name: Create pre-release
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours
+    - cron: '0 */6 * * *' # run every 6 hours
+  push:
+    branches:
+      - dev
+
 jobs:
-  publish:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Git
-        run: |
-          git config --global user.name "redtrillix"
-          git config --global user.email "zachary.gethin@destronia.com"
-      - name: Get changed files
-        id: changes
-        run: |
-          git fetch origin
-          CHANGED_FILES=$(git diff --name-only origin/main)
-          echo ::set-output name=files::$CHANGED_FILES
-      - name: Publish pre-release
-        uses: actions/create-release@v1.0.0
         with:
-          tag_name: prerelease-$(date +%Y%m%d-%H%M%S)
-          release_name: Pre-release $(date +%Y%m%d-%H%M%S)
-          description: |
-            This pre-release contains changes to the following files:
-            ${{ steps.changes.outputs.files }}
-          draft: false
-          prerelease: true
+          ref: dev
+      
+      - name: Create pre-release
+        uses: actions/create-release@v1
         env:
-          ACCESS_TOKEN: ${{ secrets.HASHCALCULATOR_RELEASESACTION }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          tag_name: pre-release-${{ github.sha }}
+          release_name: Pre-release
+          prerelease: true
+          draft: false
+          files: |
+            scripts/hashcalculator_csv.py
+            scripts/hashcalculator_sql.py
+            scripts/hashcalculator_txt.py
