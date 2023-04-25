@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        
       - name: Get version number
         id: version
         run: echo "::set-output name=version::$(cat VERSION)"
@@ -33,27 +33,50 @@ jobs:
 
       - name: Generate checksums
         run: |
-          for file in scripts/*.py; do
-            sha256sum "$file" > "$file.sha256"
-          done
+          cd scripts
+          shasum -a 256 *.py > checksums.sha256
+          cd ..
 
-      - name: Upload release assets
-        id: upload-release-assets
+      - name: Upload release asset1
+        id: upload-release-asset1
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./scripts/*.py
-          asset_name: ${{ env.FILE_NAME }}
+          asset_path: ./scripts/hashcalculator_csv.py
+          asset_name: hashcalculator_csv.py
           asset_content_type: text/x-python-script
-      - name: Upload release asset checksums
-        id: upload-release-asset-checksums
+
+      - name: Upload release asset2
+        id: upload-release-asset2
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./scripts/*.sha256
-          asset_name: ${{ env.FILE_NAME }}.sha256
+          asset_path: ./scripts/hashcalculator_sql.py
+          asset_name: hashcalculator_sql.py
+          asset_content_type: text/x-python-script
+
+      - name: Upload release asset3
+        id: upload-release-asset3
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./scripts/hashcalculator_txt.py
+          asset_name: hashcalculator_txt.py
+          asset_content_type: text/x-python-script
+
+      - name: Upload release asset4
+        id: upload-release-asset4
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./scripts/checksums.sha256
+          asset_name: checksums.sha256
           asset_content_type: text/plain
