@@ -5,10 +5,11 @@ name: Python package
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - 'scripts/**'
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+     paths:
+      - 'scripts/**'
 
 jobs:
   build:
