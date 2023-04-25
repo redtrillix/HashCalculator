@@ -15,11 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      ##- name: Read release notes
-        ##id: release_notes
-        ##run: |
-          ##echo "::set-output name=notes::$(cat release-notes.md)"
 
       - name: Get version number
         id: version
@@ -33,7 +28,6 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
-          #body: ${{ steps.release_notes.outputs.notes }}
           draft: false
           prerelease: false
 
@@ -69,3 +63,20 @@ jobs:
           asset_path: ./scripts/hashcalculator_txt.py
           asset_name: hashcalculator_txt.py
           asset_content_type: text/x-python-script
+
+      - name: Generate checksum files
+        run: |
+          for file in ./scripts/*; do
+            shasum -a 256 "$file" > "$file".sha256
+          done
+
+      - name: Upload checksum files
+        id: upload-checksum-files
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./scripts/*.sha256
+          asset_name: checksums
+          asset_content_type: text/plain
