@@ -21,8 +21,6 @@ jobs:
           echo ::set-output name=files::$CHANGED_FILES
       - name: Publish pre-release
         uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.HASHCALCULATOR_RELEASESACTION }}
         with:
           tag_name: prerelease-$(date +%Y%m%d-%H%M%S)
           release_name: Pre-release $(date +%Y%m%d-%H%M%S)
@@ -31,3 +29,5 @@ jobs:
             ${{ steps.changes.outputs.files }}
           draft: false
           prerelease: true
+        env:
+          ACCESS_TOKEN: ${{ secrets.HASHCALCULATOR_RELEASESACTION }}
