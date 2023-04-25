@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Read release notes
-        id: release_notes
-        run: |
-          echo "::set-output name=notes::$(cat release-notes.md)"
+      ##- name: Read release notes
+        ##id: release_notes
+        ##run: |
+          ##echo "::set-output name=notes::$(cat release-notes.md)"
 
       - name: Get version number
         id: version
@@ -32,7 +32,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
-          body: ${{ steps.release_notes.outputs.notes }}
+          #body: ${{ steps.release_notes.outputs.notes }}
           draft: false
           prerelease: false
 
