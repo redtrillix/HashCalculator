@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HashCalculator/scripts/hashcalculator_csv.py
+          asset_path: ./scripts/hashcalculator_csv.py
           asset_name: hashcalculator_csv.py
           asset_content_type: text/x-python-script
           
@@ -54,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HashCalculator/scripts/hashcalculator_sql.py
+          asset_path: ./scripts/hashcalculator_sql.py
           asset_name: hashcalculator_sql.py
           asset_content_type: text/x-python-script
           
@@ -65,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: HashCalculator/scripts/hashcalculator_txt.py
+          asset_path: ./scripts/hashcalculator_txt.py
           asset_name: hashcalculator_txt.py
           asset_content_type: text/x-python-script
           
