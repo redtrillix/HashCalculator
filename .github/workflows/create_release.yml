@@ -1,0 +1,31 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get version number
+        id: version
+        run: echo "::set-output name=version::$(cat VERSION)"
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1.0.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          body: |
+            This is the release notes for version ${{ steps.version.outputs.version }}.
+          draft: false
+          prerelease: false
