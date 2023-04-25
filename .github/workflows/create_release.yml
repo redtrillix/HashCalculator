@@ -19,10 +19,10 @@ jobs:
         id: version
         run: echo "::set-output name=version::$(cat VERSION)"
         
-      - name: Read release notes
-        id: release_notes
-        run: |
-          echo "::set-output name=notes::$(cat release-notes.md)"
+      ##- name: Read release notes
+        ##id: release_notes
+        ##run: |
+          ##echo "::set-output name=notes::$(cat release-notes.md)"
 
       - name: Create release
         id: create_release
@@ -32,7 +32,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
-          body: ${{ steps.release_notes.outputs.notes }}
+          body: ${{ file("release-notes.md") }}
           draft: false
           prerelease: false
 
