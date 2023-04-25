@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'scripts/**'
 
 jobs:
   create_release:
