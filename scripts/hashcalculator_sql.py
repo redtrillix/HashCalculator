@@ -1,6 +1,6 @@
 # A Hash Calculator script written in python for a sqlite database output
-# Made by redtrillix
-# Version: v0.2.0
+# Made by github.com/redtrillix
+# Version: v0.2.1
 
 import hashlib
 import os
@@ -22,13 +22,14 @@ for file_path in files:
     hashes[file_path] = file_hash
 
 # Store hashes in SQLite database
-output_dir = "data"
-db_path = os.path.join(output_dir, "hashes.db")
-conn = sqlite3.connect(db_path)
-cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS hashes (file_path TEXT PRIMARY KEY, file_hash TEXT, date TEXT)")
-calculated_date = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+output_dir = "data"  # Directory to save the database file
+db_name = "hashes.db"  # Name of the database file
+db_path = os.path.join(output_dir, db_name)  # Path to the database file
+conn = sqlite3.connect(db_path)  # Connect to the database
+cursor = conn.cursor()  # Create a cursor object
+cursor.execute("CREATE TABLE IF NOT EXISTS hashes (file_path TEXT PRIMARY KEY, file_hash TEXT, date TEXT)")  # Create a table to store the hashes
+calculated_date = datetime.now().strftime("%Y/%m/%d %H:%M:%S")  # Get the current date and time in the desired format
 for file_path, file_hash in hashes.items():
-    cursor.execute("INSERT OR REPLACE INTO hashes VALUES (?, ?, ?)", (file_path, file_hash, calculated_date))
-conn.commit()
-conn.close()
+    cursor.execute("INSERT OR REPLACE INTO hashes VALUES (?, ?, ?)", (file_path, file_hash, calculated_date))  # Insert or replace the hash value and date for each file into the database
+conn.commit()  # Save the changes to the database
+conn.close()  # Close the database connection

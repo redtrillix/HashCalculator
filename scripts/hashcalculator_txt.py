@@ -1,6 +1,6 @@
 # A Hash Calculator script written in python for a plain text file output
-# Made by redtrillix
-# Version: v0.4.0
+# Made by github.com/redtrillix
+# Version: v0.4.1
 
 import hashlib
 import os
