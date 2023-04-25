@@ -18,14 +18,18 @@ jobs:
         with:
           ref: dev
       
+      - name: Get short commit hash
+        id: get_sha
+        run: echo "::set-output name=sha_short::$(git log -1 --format=%h)"
+          
       - name: Create pre-release
         id: create_pre-release
         uses: actions/create-release@v1.1.4
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
-          tag_name: pre-release
-          release_name: pre-release
+          tag_name: "pre-release${{ steps.get_sha.outputs.sha_short }}"
+          release_name: "pre-release"
           prerelease: true
           draft: false
           
