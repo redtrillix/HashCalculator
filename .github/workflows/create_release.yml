@@ -18,6 +18,11 @@ jobs:
       - name: Get version number
         id: version
         run: echo "::set-output name=version::$(cat VERSION)"
+        
+      - name: Read release notes
+        id: release_notes
+        run: |
+          echo "::set-output name=notes::$(cat release-notes.md)"
 
       - name: Create release
         id: create_release
@@ -27,11 +32,40 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
-          body: |
-            This is the release notes for version ${{ steps.version.outputs.version }}.
+          body: ${{ steps.release_notes.outputs.notes }}
           draft: false
           prerelease: false
-          files: |
-            /scripts/hashcalculator_csv.py
-            /scripts/hashcalculator_sql.py
-            /scripts/hashcalculator_txt.py
+
+      - name: Upload release asset1
+        id: upload-release-asset1
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: HashCalculator/scripts/hashcalculator_csv.py
+          asset_name: hashcalculator_csv.py
+          asset_content_type: text/x-python-script
+          
+      - name: Upload release asset2
+        id: upload-release-asset2
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: HashCalculator/scripts/hashcalculator_sql.py
+          asset_name: hashcalculator_sql.py
+          asset_content_type: text/x-python-script
+          
+      - name: Upload release asset3
+        id: upload-release-asset3
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: HashCalculator/scripts/hashcalculator_txt.py
+          asset_name: hashcalculator_txt.py
+          asset_content_type: text/x-python-script
+          
