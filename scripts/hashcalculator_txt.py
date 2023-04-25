@@ -1,6 +1,6 @@
 # A Hash Calculator script written in python for a plain text file output
 # Made by github.com/redtrillix
-# Version: v0.4.1
+# Version: v0.4.2
 
 import hashlib
 import os
@@ -21,9 +21,9 @@ if files:
         hashes[file_path] = file_hash
 
     # Store hashes in text file
-    output_dir = "data"
-    os.makedirs(output_dir, exist_ok=True)
-    output_file_path = os.path.join(output_dir, "hashes.txt")
-    with open(output_file_path, "a") as f:
-        for file_path, file_hash in hashes.items():
-            f.write(f"{file_path}\t{file_hash}\n")
+    output_dir = "data" # the output directory where the output file is saved
+    os.makedirs(output_dir, exist_ok=True) # create the output directory if it doesn't exist
+    output_file_path = os.path.join(output_dir, "hashes.txt") # create the output file path
+    with open(output_file_path, "a") as f: # open the output file in "append" mode
+        for file_path, file_hash in hashes.items(): # iterate through each file and its hash
+            f.write(f"{file_path}\t{file_hash}\n") # write the file path and its hash to the output file, separated by a tab and with a newline at the end
