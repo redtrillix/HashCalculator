@@ -1,6 +1,3 @@
-# v0.1.0
-## CHANGES
-
 - af92dd2764c97166a42fbca09c5e7e37871985c6
 - cf61ad17b5c0cb8f21b020bcaa0e899f93d798e4
 - 17f6f043fdbe0b9f3a4adf365ebdd8313d99306c
