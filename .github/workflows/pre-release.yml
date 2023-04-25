@@ -1,9 +1,7 @@
 name: Publish changed files to pre-release
 on:
-  workflow_dispatch:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
-  
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -32,4 +30,3 @@ jobs:
           body: |
             This pre-release contains changes to the following files:
             ${{ steps.changes.outputs.files }}
-          commitish: main
