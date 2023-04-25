@@ -11,8 +11,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up Git
         run: |
-          git config --global user.name "redtrillix"
-          git config --global user.email "zachary.gethin@destronia.com"
+          git config --global user.name "Your Name"
+          git config --global user.email "you@example.com"
       - name: Get changed files
         id: changes
         run: |
@@ -26,8 +26,8 @@ jobs:
         with:
           tag_name: prerelease-$(date +%Y%m%d-%H%M%S)
           release_name: Pre-release $(date +%Y%m%d-%H%M%S)
-          draft: false
-          prerelease: true
-          body: |
+          description: |
             This pre-release contains changes to the following files:
             ${{ steps.changes.outputs.files }}
+          draft: false
+          prerelease: true
