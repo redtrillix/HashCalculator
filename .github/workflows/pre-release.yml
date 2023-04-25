@@ -1,0 +1,35 @@
+name: Publish changed files to pre-release
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Git
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "you@example.com"
+      - name: Get changed files
+        id: changes
+        run: |
+          git fetch origin
+          CHANGED_FILES=$(git diff --name-only origin/main)
+          echo ::set-output name=files::$CHANGED_FILES
+      - name: Publish pre-release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: prerelease-$(date +%Y%m%d-%H%M%S)
+          release_name: Pre-release $(date +%Y%m%d-%H%M%S)
+          draft: false
+          prerelease: true
+          body: |
+            This pre-release contains changes to the following files:
+            ${{ steps.changes.outputs.files }}
+          commitish: main
