@@ -2,7 +2,7 @@
 
 ## Description (WIP)
 - (CSV Placeholder) makes a [comma seperated value (csv)](https://en.wikipedia.org/wiki/Comma-separated_values) file that can be opened in a program like excel.
-- (DB||SQLITE Placeholder) makes a database file for sqlite.
+- (DB || SQLITE Placeholder) makes a database file for sqlite.
 - (TXT Placeholder) makes a plain text file, and unlike the above csv and db file, it isnt formatted in any special way.
 
 ### File Contents
