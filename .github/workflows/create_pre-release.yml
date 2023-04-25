@@ -29,6 +29,6 @@ jobs:
           prerelease: true
           draft: false
           files: |
-            scripts/hashcalculator_csv.py
-            scripts/hashcalculator_sql.py
-            scripts/hashcalculator_txt.py
+            /scripts/hashcalculator_csv.py
+            /scripts/hashcalculator_sql.py
+            /scripts/hashcalculator_txt.py
