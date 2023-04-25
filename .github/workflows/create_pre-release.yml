@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - 'scripts/**'
 
 jobs:
   create-release:
@@ -17,7 +19,8 @@ jobs:
           ref: dev
       
       - name: Create pre-release
-        uses: actions/create-release@v1
+        id: create_pre-release
+        uses: actions/create-release@v1.1.4
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
@@ -26,6 +29,6 @@ jobs:
           prerelease: true
           draft: false
           files: |
-            scripts/hashcalculator_csv.py
-            scripts/hashcalculator_sql.py
-            scripts/hashcalculator_txt.py
+            /scripts/hashcalculator_csv.py
+            /scripts/hashcalculator_sql.py
+            /scripts/hashcalculator_txt.py
