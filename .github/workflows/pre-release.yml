@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
-  
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -27,9 +26,8 @@ jobs:
         with:
           tag_name: prerelease-$(date +%Y%m%d-%H%M%S)
           release_name: Pre-release $(date +%Y%m%d-%H%M%S)
-          draft: false
-          prerelease: true
-          body: |
+          description: |
             This pre-release contains changes to the following files:
             ${{ steps.changes.outputs.files }}
-          commitish: main
+          draft: false
+          prerelease: true
