@@ -29,7 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           tag_name: "pre-release_${{ steps.get_sha.outputs.sha_short }}"
-          release_name: "pre-release"
+          release_name: "Pre-Release Build"
           prerelease: true
           draft: false
           
