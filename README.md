@@ -1,3 +1,5 @@
+[![Create Release](https://github.com/redtrillix/HashCalculator/actions/workflows/create_release.yml/badge.svg)](https://github.com/redtrillix/HashCalculator/actions/workflows/create_release.yml)
+
 # [BETA] A Semi-Graphical Hash Calculator
 
 ## Description (WIP)
